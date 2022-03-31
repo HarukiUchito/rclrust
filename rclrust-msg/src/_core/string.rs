@@ -78,6 +78,7 @@ impl FFIFromRust for OwnedFFIString {
     }
 }
 
+#[allow(unused_must_use)]
 impl Drop for OwnedFFIString {
     fn drop(&mut self) {
         unsafe {

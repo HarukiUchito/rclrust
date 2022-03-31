@@ -9,6 +9,7 @@ pub enum WorkerMessage<T> {
     Terminate,
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 pub struct ReceiveWorker<T> {
     tx: mpsc::Sender<WorkerMessage<T>>,

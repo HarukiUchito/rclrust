@@ -3,6 +3,8 @@ use std::{convert::TryInto, fmt};
 use super::{ParameterDescriptor, ParameterType, RclParameterType, RclParameterValue};
 use crate::internal::ffi::SizedFromCChar;
 
+use anyhow::{anyhow, Result};
+
 #[derive(Debug, Clone, PartialEq)]
 pub enum Variant {
     Bool(bool),
@@ -14,6 +16,22 @@ pub enum Variant {
     IntegerArray(Vec<i64>),
     DoubleArray(Vec<f64>),
     StringArray(Vec<String>),
+}
+
+impl Variant {
+    pub fn to_f64(&self) -> Result<f64> {
+        match self {
+            Variant::Double(ret) => Ok(*ret),
+            _ => Err(anyhow!("passed variant is not double")),
+        }
+    }
+
+    pub fn to_string(&self) -> Result<String> {
+        match self {
+            Variant::String(ret) => Ok(ret.to_string()),
+            _ => Err(anyhow!("passed variant is not string")),
+        }
+    }
 }
 
 impl fmt::Display for Variant {
